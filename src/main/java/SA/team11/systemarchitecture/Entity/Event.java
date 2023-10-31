@@ -1,4 +1,4 @@
-package SA.team11.systemarchitecture;
+package SA.team11.systemarchitecture.Entity;
 
 import jakarta.persistence.*;
 

@@ -1,4 +1,4 @@
-package SA.team11.systemarchitecture;
+package SA.team11.systemarchitecture.InitialDB;
 
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;

@@ -1,5 +1,6 @@
-package SA.team11.systemarchitecture;
+package SA.team11.systemarchitecture.InitialDB;
 
+import SA.team11.systemarchitecture.Entity.Event;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import jakarta.persistence.EntityManager;
