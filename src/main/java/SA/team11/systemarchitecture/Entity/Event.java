@@ -13,12 +13,17 @@ public class Event {
     String title;
     LocalDate startDate;
     LocalDate endDate;
+    @Column(columnDefinition = "TEXT")
     String category;
+    @Column(columnDefinition = "TEXT")
     String region; /*지역. 도, 광역시, 서울 등*/
+    @Column(columnDefinition = "TEXT")
     String place; /* 행사 장소 */
-    @Column(length =  1000)
+    @Column(columnDefinition = "TEXT")
     String introduction; /* 소개 */
+    @Column(columnDefinition = "TEXT")
     String performer; /* 출연진 */
+    @Column(columnDefinition = "TEXT")
     String poster; /* 포스터 이미지 경로 */
     
     public Event() {

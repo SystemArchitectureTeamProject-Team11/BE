@@ -1,10 +1,9 @@
 package SA.team11.systemarchitecture.InitialDB;
 
 import SA.team11.systemarchitecture.Entity.Event;
+import SA.team11.systemarchitecture.repository.EventRepository;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import jakarta.persistence.EntityManager;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONObject;
 import org.json.XML;
@@ -21,10 +20,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 @Component
-@Transactional
 @RequiredArgsConstructor
 public class InitService {
-    private final EntityManager em;
+    private final EventRepository eventRepository;
     
     public void concertApi() {
         String data;
@@ -61,19 +59,27 @@ public class InitService {
             
             if(dbObject.get("genrenm").getAsString().equals("대중음악")){
                 event = new Event(dbObject.get("prfnm").getAsString(),
-                        LocalDate.parse(dbObject.get("prfpdto").getAsString(), DateTimeFormatter.ofPattern("yyyy.MM.dd")),
                         LocalDate.parse(dbObject.get("prfpdfrom").getAsString(), DateTimeFormatter.ofPattern("yyyy.MM.dd")),
+                        LocalDate.parse(dbObject.get("prfpdto").getAsString(), DateTimeFormatter.ofPattern("yyyy.MM.dd")),
                         "콘서트", dbObject2.get("area").getAsString(), dbObject2.get("fcltynm").getAsString(),
                         dbObject2.get("sty").getAsString(), dbObject2.get("prfcast").getAsString(), dbObject.get("poster").getAsString());
-                em.persist(event);
-                continue;
+                try {
+                    eventRepository.save(event);
+                } catch (Exception e) {
+                    continue;
+                }
             }
             event = new Event(dbObject.get("prfnm").getAsString(),
-                    LocalDate.parse(dbObject.get("prfpdto").getAsString(), DateTimeFormatter.ofPattern("yyyy.MM.dd")),
                     LocalDate.parse(dbObject.get("prfpdfrom").getAsString(), DateTimeFormatter.ofPattern("yyyy.MM.dd")),
+                    LocalDate.parse(dbObject.get("prfpdto").getAsString(), DateTimeFormatter.ofPattern("yyyy.MM.dd")),
                     dbObject.get("genrenm").getAsString(), dbObject2.get("area").getAsString(), dbObject2.get("fcltynm").getAsString(),
                     dbObject2.get("sty").getAsString(), dbObject2.get("prfcast").getAsString(), dbObject.get("poster").getAsString());
-            em.persist(event);
+            try {
+                eventRepository.save(event);
+            } catch (Exception e) {
+                continue;
+            }
+            
         }
     }
     
@@ -98,7 +104,11 @@ public class InitService {
                     LocalDate.parse(dates[0], DateTimeFormatter.ISO_DATE), LocalDate.parse(dates[1], DateTimeFormatter.ISO_DATE),
                     rowObject.get("CODENAME").getAsString(), "서울", rowObject.get("PLACE").getAsString(),
                     rowObject.get("PROGRAM").getAsString(), rowObject.get("PLAYER").getAsString(), rowObject.get("MAIN_IMG").getAsString());
-            em.persist(event);
+            try {
+                eventRepository.save(event);
+            } catch (Exception e) {
+                continue;
+            }
         }
     }
     
@@ -137,7 +147,7 @@ public class InitService {
                         event = new Event(itemsObject.get("fstvlNm").getAsString(), LocalDate.parse(itemsObject.get("fstvlStartDate").getAsString(), DateTimeFormatter.ISO_DATE),
                                 LocalDate.parse(itemsObject.get("fstvlEndDate").getAsString(), DateTimeFormatter.ISO_DATE), "축제",
                                 itemsObject.get("rdnmadr").getAsString(), itemsObject.get("opar").getAsString(), itemsObject.get("fstvlCo").getAsString());
-                        em.persist(event);
+                        eventRepository.save(event);
                         
                     }
                 }
