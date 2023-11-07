@@ -35,7 +35,7 @@ public class InitService {
                     "=" + URLEncoder.encode(LocalDate.now().minusMonths(2).format(DateTimeFormatter.ofPattern("yyyyMMdd")).toString(), "UTF-8")); /*공연시작날짜*/
             urlBuilder.append("&" + URLEncoder.encode("eddate", "UTF-8") + "=" + URLEncoder.encode("20240331", "UTF-8")); /*공연종료일자*/
             urlBuilder.append("&" + URLEncoder.encode("cpage", "UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*현재페이지*/
-            urlBuilder.append("&" + URLEncoder.encode("rows", "UTF-8") + "=" + URLEncoder.encode("700", "UTF-8")); /*페이지당 목록 수*/
+            urlBuilder.append("&" + URLEncoder.encode("rows", "UTF-8") + "=" + URLEncoder.encode("1000", "UTF-8")); /*페이지당 목록 수*/
         } catch (Exception e) {
             e.printStackTrace();
         }
