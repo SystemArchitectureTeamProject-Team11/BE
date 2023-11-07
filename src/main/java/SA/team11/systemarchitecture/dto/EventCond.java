@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EventCond {
-    private LocalDate start;
+    private String start;
     private String region;
     private String category;
 }

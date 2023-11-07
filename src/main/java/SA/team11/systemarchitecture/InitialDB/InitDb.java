@@ -13,6 +13,5 @@ public class InitDb {
     public void init() {
         initService.concertApi();
         initService.seoulApi();
-
     }
 }

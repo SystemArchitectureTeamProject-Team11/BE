@@ -29,6 +29,7 @@ public class EventRepositoryImpl implements EventRepositoryCustom {
                         event.title,
                         event.place,
                         event.startDate.stringValue().append("~").append(event.endDate.stringValue()),
+                        event.isStart,
                         event.poster
                 ))
                 .from(event)
@@ -38,9 +39,9 @@ public class EventRepositoryImpl implements EventRepositoryCustom {
                 .fetch();
     }
     
-    private BooleanExpression startEq(LocalDate startDate) {
-        if (startDate != null) {
-            return event.startDate.eq(startDate);
+    private BooleanExpression startEq(String isStart) {
+        if (isStart != null) {
+            return event.isStart.eq(isStart);
         }
         return null;
     }
