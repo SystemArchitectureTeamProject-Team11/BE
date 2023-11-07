@@ -35,7 +35,8 @@ public class EventRepositoryImpl implements EventRepositoryCustom {
                 .from(event)
                 .where(startEq(condition.getStart()),
                         regionEq(condition.getRegion()),
-                        categoryEq(condition.getCategory()))
+                        categoryEq(condition.getCategory()),
+                        event.isStart.isNotEmpty())
                 .orderBy(event.startDate.asc())
                 .fetch();
     }
