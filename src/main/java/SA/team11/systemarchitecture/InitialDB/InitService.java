@@ -35,7 +35,7 @@ public class InitService {
                     "=" + URLEncoder.encode(LocalDate.now().minusMonths(2).format(DateTimeFormatter.ofPattern("yyyyMMdd")).toString(), "UTF-8")); /*공연시작날짜*/
             urlBuilder.append("&" + URLEncoder.encode("eddate", "UTF-8") + "=" + URLEncoder.encode("20240331", "UTF-8")); /*공연종료일자*/
             urlBuilder.append("&" + URLEncoder.encode("cpage", "UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*현재페이지*/
-            urlBuilder.append("&" + URLEncoder.encode("rows", "UTF-8") + "=" + URLEncoder.encode("500", "UTF-8")); /*페이지당 목록 수*/
+            urlBuilder.append("&" + URLEncoder.encode("rows", "UTF-8") + "=" + URLEncoder.encode("700", "UTF-8")); /*페이지당 목록 수*/
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -95,7 +95,7 @@ public class InitService {
     }
     
     public void seoulApi() {
-        StringBuilder urlBuilder = new StringBuilder("http://openapi.seoul.go.kr:8088/77627546666779743637486f746a79/json/culturalEventInfo/1/200/"); /*URL*/
+        StringBuilder urlBuilder = new StringBuilder("http://openapi.seoul.go.kr:8088/77627546666779743637486f746a79/json/culturalEventInfo/1/300/"); /*URL*/
         Event event;
         
         String data = jsonApi(urlBuilder);
