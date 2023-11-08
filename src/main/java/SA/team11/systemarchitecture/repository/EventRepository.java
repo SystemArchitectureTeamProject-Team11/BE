@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface EventRepository extends JpaRepository<Event, Long> , EventRepositoryCustom{
     void deleteByIsStart(String isStart);
-    List<Event> findTop100OrderByStartDateAsc();
+    List<Event> findTop100ByOrderByStartDateAsc();
 }
