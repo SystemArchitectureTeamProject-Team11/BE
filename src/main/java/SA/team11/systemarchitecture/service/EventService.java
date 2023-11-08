@@ -23,7 +23,7 @@ public class EventService {
 
     
     public List<EventOutput> getEventList() {
-        List<Event> eventList = eventRepository.findTop100OrderByStartDateAsc();
+        List<Event> eventList = eventRepository.findTop100ByOrderByStartDateAsc();
         List<EventOutput> eventOutputList = new ArrayList<>();
 
         for(Event event : eventList) {
