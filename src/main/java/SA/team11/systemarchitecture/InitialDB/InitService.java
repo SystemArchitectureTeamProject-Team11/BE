@@ -9,6 +9,7 @@ import org.json.JSONObject;
 import org.json.XML;
 import com.google.gson.JsonObject;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -127,9 +128,9 @@ public class InitService {
             }
         }
     }
-    
+    @Transactional
     public void deletePast() {
-        eventRepository.deleteByIsStart(null);
+        eventRepository.deleteAllByIsStart(null);
     }
 
     public void resetDB() {
