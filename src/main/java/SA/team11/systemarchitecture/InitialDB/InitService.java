@@ -127,6 +127,10 @@ public class InitService {
             }
         }
     }
+
+    public void resetDB() {
+        eventRepository.deleteAll();
+    }
     
     public void festivalApi() {
         StringBuilder urlBuilder =  new StringBuilder();

@@ -11,8 +11,13 @@ public class InitDb {
     private final InitService initService;
     
     @PostConstruct
-    @Scheduled(cron = "0 0 18 * * *")
     public void init() {
+        initService.concertApi();
+        initService.seoulApi();
+    }
+    @Scheduled(cron = "0 0 18 * * *")
+    public void reset() {
+        initService.resetDB();
         initService.concertApi();
         initService.seoulApi();
     }
