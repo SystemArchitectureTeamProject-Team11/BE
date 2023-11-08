@@ -1,7 +1,6 @@
 package SA.team11.systemarchitecture.dto;
 
 import com.querydsl.core.annotations.QueryProjection;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Builder;
@@ -17,7 +16,7 @@ public class EventOutput {
     private String isStart;
     private String poster;
 
-    @Builder
+    
     @QueryProjection
     public EventOutput(Long id, String title, String place, String period, String poster) {
         this.id = id;
@@ -26,7 +25,7 @@ public class EventOutput {
         this.period = period;
         this.poster = poster;
     }
-
+    @Builder
     @QueryProjection
     public EventOutput(Long id, String title, String place, String period,String isStart, String poster) {
         this.id = id;

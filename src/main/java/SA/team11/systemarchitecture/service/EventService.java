@@ -7,6 +7,9 @@ import SA.team11.systemarchitecture.repository.EventRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -18,9 +21,9 @@ public class EventService {
         return eventRepository.search(condition);
     }
 
-    @Transactional
+    
     public List<EventOutput> getEventList() {
-        List<Event> eventList = eventRepository.findAll();
+        List<Event> eventList = eventRepository.findTop100OrderByStartDateAsc();
         List<EventOutput> eventOutputList = new ArrayList<>();
 
         for(Event event : eventList) {
@@ -29,6 +32,8 @@ public class EventService {
                     .title(event.getTitle())
                     .place(event.getPlace())
                     .period(formatPeriod(event.getStartDate(), event.getEndDate()))
+                    .isStart(event.getIsStart())
+                    .poster(event.getPoster())
                     .build();
             eventOutputList.add(eventOutput);
         }
@@ -36,8 +41,8 @@ public class EventService {
     }
 
     private String formatPeriod(LocalDate startDate, LocalDate endDate) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
-        return startDate.format(formatter) + " - " + endDate.format(formatter);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return startDate.format(formatter) + " ~ " + endDate.format(formatter);
     }
 
     public Event getEventById(Long id) {

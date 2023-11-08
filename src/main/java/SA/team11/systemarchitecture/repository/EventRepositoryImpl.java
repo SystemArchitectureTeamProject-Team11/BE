@@ -7,7 +7,6 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import static SA.team11.systemarchitecture.Entity.QEvent.*;
@@ -38,6 +37,7 @@ public class EventRepositoryImpl implements EventRepositoryCustom {
                         categoryEq(condition.getCategory()),
                         event.isStart.isNotEmpty())
                 .orderBy(event.startDate.asc())
+                .limit(100)
                 .fetch();
     }
     

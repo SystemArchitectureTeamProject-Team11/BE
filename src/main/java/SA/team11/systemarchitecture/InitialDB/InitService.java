@@ -127,6 +127,10 @@ public class InitService {
             }
         }
     }
+    
+    public void deletePast() {
+        eventRepository.deleteByIsStart(null);
+    }
 
     public void resetDB() {
         eventRepository.deleteAll();
