@@ -1,10 +1,12 @@
 package SA.team11.systemarchitecture.Entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 
 import java.time.LocalDate;
 
 @Entity
+@Getter
 public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +27,7 @@ public class Event {
     String performer; /* 출연진 */
     @Column(columnDefinition = "TEXT")
     String poster; /* 포스터 이미지 경로 */
+    String isStart;
     
     public Event() {
     
@@ -50,5 +53,9 @@ public class Event {
         this.region = region;
         this.place = place;
         this.introduction = introduction;
+    }
+
+    public void changeIsStart(String isStart) {
+        this.isStart = isStart;
     }
 }

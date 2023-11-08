@@ -32,10 +32,10 @@ public class InitService {
             urlBuilder.append("?" + URLEncoder.encode("service", "UTF-8") +
                     "=a23b5f2b5d5f48ebbb42e822055cc99f"); /*Service Key*/
             urlBuilder.append("&" + URLEncoder.encode("stdate", "UTF-8") +
-                    "=" + URLEncoder.encode(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")).toString(), "UTF-8")); /*공연시작날짜*/
-            urlBuilder.append("&" + URLEncoder.encode("eddate", "UTF-8") + "=" + URLEncoder.encode("20231231", "UTF-8")); /*공연종료일자*/
+                    "=" + URLEncoder.encode(LocalDate.now().minusMonths(2).format(DateTimeFormatter.ofPattern("yyyyMMdd")).toString(), "UTF-8")); /*공연시작날짜*/
+            urlBuilder.append("&" + URLEncoder.encode("eddate", "UTF-8") + "=" + URLEncoder.encode("20240331", "UTF-8")); /*공연종료일자*/
             urlBuilder.append("&" + URLEncoder.encode("cpage", "UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*현재페이지*/
-            urlBuilder.append("&" + URLEncoder.encode("rows", "UTF-8") + "=" + URLEncoder.encode("100", "UTF-8")); /*페이지당 목록 수*/
+            urlBuilder.append("&" + URLEncoder.encode("rows", "UTF-8") + "=" + URLEncoder.encode("1000", "UTF-8")); /*페이지당 목록 수*/
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -63,6 +63,12 @@ public class InitService {
                         LocalDate.parse(dbObject.get("prfpdto").getAsString(), DateTimeFormatter.ofPattern("yyyy.MM.dd")),
                         "콘서트", dbObject2.get("area").getAsString(), dbObject2.get("fcltynm").getAsString(),
                         dbObject2.get("sty").getAsString(), dbObject2.get("prfcast").getAsString(), dbObject.get("poster").getAsString());
+                if ((event.getStartDate().compareTo(LocalDate.now()) <= 0) && (event.getEndDate().compareTo(LocalDate.now()) >= 0)) {
+                    event.changeIsStart("개최중");
+                } else if (event.getStartDate().compareTo(LocalDate.now()) > 0) {
+                    event.changeIsStart("개최 예정");
+                }
+
                 try {
                     eventRepository.save(event);
                 } catch (Exception e) {
@@ -74,6 +80,11 @@ public class InitService {
                     LocalDate.parse(dbObject.get("prfpdto").getAsString(), DateTimeFormatter.ofPattern("yyyy.MM.dd")),
                     dbObject.get("genrenm").getAsString(), dbObject2.get("area").getAsString(), dbObject2.get("fcltynm").getAsString(),
                     dbObject2.get("sty").getAsString(), dbObject2.get("prfcast").getAsString(), dbObject.get("poster").getAsString());
+            if ((event.getStartDate().compareTo(LocalDate.now()) <= 0) && (event.getEndDate().compareTo(LocalDate.now()) >= 0)) {
+                event.changeIsStart("개최중");
+            } else if (event.getStartDate().compareTo(LocalDate.now()) > 0) {
+                event.changeIsStart("개최 예정");
+            }
             try {
                 eventRepository.save(event);
             } catch (Exception e) {
@@ -84,7 +95,7 @@ public class InitService {
     }
     
     public void seoulApi() {
-        StringBuilder urlBuilder = new StringBuilder("http://openapi.seoul.go.kr:8088/77627546666779743637486f746a79/json/culturalEventInfo/1/100/"); /*URL*/
+        StringBuilder urlBuilder = new StringBuilder("http://openapi.seoul.go.kr:8088/77627546666779743637486f746a79/json/culturalEventInfo/1/300/"); /*URL*/
         Event event;
         
         String data = jsonApi(urlBuilder);
@@ -104,6 +115,11 @@ public class InitService {
                     LocalDate.parse(dates[0], DateTimeFormatter.ISO_DATE), LocalDate.parse(dates[1], DateTimeFormatter.ISO_DATE),
                     rowObject.get("CODENAME").getAsString(), "서울", rowObject.get("PLACE").getAsString(),
                     rowObject.get("PROGRAM").getAsString(), rowObject.get("PLAYER").getAsString(), rowObject.get("MAIN_IMG").getAsString());
+            if ((event.getStartDate().compareTo(LocalDate.now()) <= 0) && (event.getEndDate().compareTo(LocalDate.now()) >= 0)) {
+                event.changeIsStart("개최중");
+            } else if (event.getStartDate().compareTo(LocalDate.now()) > 0) {
+                event.changeIsStart("개최 예정");
+            }
             try {
                 eventRepository.save(event);
             } catch (Exception e) {

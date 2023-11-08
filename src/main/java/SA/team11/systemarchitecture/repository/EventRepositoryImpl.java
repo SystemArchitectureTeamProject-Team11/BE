@@ -29,18 +29,21 @@ public class EventRepositoryImpl implements EventRepositoryCustom {
                         event.title,
                         event.place,
                         event.startDate.stringValue().append("~").append(event.endDate.stringValue()),
+                        event.isStart,
                         event.poster
                 ))
                 .from(event)
                 .where(startEq(condition.getStart()),
                         regionEq(condition.getRegion()),
-                        categoryEq(condition.getCategory()))
+                        categoryEq(condition.getCategory()),
+                        event.isStart.isNotEmpty())
+                .orderBy(event.startDate.asc())
                 .fetch();
     }
     
-    private BooleanExpression startEq(LocalDate startDate) {
-        if (startDate != null) {
-            return event.startDate.eq(startDate);
+    private BooleanExpression startEq(String isStart) {
+        if (isStart != null) {
+            return event.isStart.eq(isStart);
         }
         return null;
     }
