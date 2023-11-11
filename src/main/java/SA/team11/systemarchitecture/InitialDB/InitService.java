@@ -132,11 +132,11 @@ public class InitService {
     public void deletePast() {
         eventRepository.deleteAllByIsStart(null);
     }
-
+    @Transactional
     public void resetDB() {
         eventRepository.deleteAll();
     }
-    
+    @Transactional
     public void festivalApi() {
         StringBuilder urlBuilder =  new StringBuilder();
         Event event;
