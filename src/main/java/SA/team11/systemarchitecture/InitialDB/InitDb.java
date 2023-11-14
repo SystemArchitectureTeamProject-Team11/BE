@@ -16,11 +16,4 @@ public class InitDb {
         initService.seoulApi();
         initService.deletePast();
     }
-    @Scheduled(cron = "0 0 18 * * *")
-    public void reset() {
-        initService.resetDB();
-        initService.concertApi();
-        initService.seoulApi();
-        initService.deletePast();
-    }
 }
