@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin("http://210.119.237.42:5500")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class EventController {
     private final EventService eventService;
     
