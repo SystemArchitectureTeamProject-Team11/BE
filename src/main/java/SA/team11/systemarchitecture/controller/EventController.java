@@ -5,15 +5,13 @@ import SA.team11.systemarchitecture.dto.EventCond;
 import SA.team11.systemarchitecture.dto.EventOutput;
 import SA.team11.systemarchitecture.service.EventService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin("http://210.119.237.42:5500")
 public class EventController {
     private final EventService eventService;
     
