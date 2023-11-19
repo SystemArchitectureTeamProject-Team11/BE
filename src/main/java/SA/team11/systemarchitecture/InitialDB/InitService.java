@@ -136,51 +136,6 @@ public class InitService {
     public void resetDB() {
         eventRepository.deleteAll();
     }
-    @Transactional
-    public void festivalApi() {
-        StringBuilder urlBuilder =  new StringBuilder();
-        Event event;
-        String data;
-        Gson gson = new Gson();
-        JsonObject jsonObject, response, body, itemsObject;
-        JsonArray items;
-        
-        for (int i = 0; i < 30; i++) {
-            urlBuilder.append("http://api.data.go.kr/openapi/tn_pubr_public_cltur_fstvl_api"); /*URL*/
-            try{
-                urlBuilder.append("?" + URLEncoder.encode("serviceKey", "UTF-8") +
-                        "=fXAOWIO2gYzP9w7USuRh4lKzRv8e7ClA5kh7CkPOTSXzCWg8O%2BI4%2BCDv7Bd0whCQqLvolyT2nRm%2BsN4AqKne%2BA%3D%3D"); /*Service Key*/
-                urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*페이지 번호*/
-                urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("10", "UTF-8")); /*한 페이지 결과 수*/
-                urlBuilder.append("&" + URLEncoder.encode("type","UTF-8") + "=" + URLEncoder.encode("json", "UTF-8")); /*XML/JSON 여부*/
-                urlBuilder.append("&" + URLEncoder.encode("fstvlStartDate","UTF-8") + "=" + URLEncoder.encode(LocalDate.now().plusDays(i).toString(), "UTF-8")); /*축제시작일자*/
-            }catch (UnsupportedEncodingException e){
-                throw new RuntimeException(e);
-            }
-            
-            data = jsonApi(urlBuilder);
-            urlBuilder.setLength(0);
-            jsonObject = gson.fromJson(data, JsonObject.class);
-            response = jsonObject.getAsJsonObject("response");
-            body = response.getAsJsonObject("body");
-            if(!(body == null))
-            {
-                items = body.getAsJsonArray("items");
-                for (int j = 0; j < items.size(); j++) {
-                    itemsObject = items.get(j).getAsJsonObject();
-                    if(!itemsObject.get("rdnmadr").getAsString().isBlank()){
-                        event = new Event(itemsObject.get("fstvlNm").getAsString(), LocalDate.parse(itemsObject.get("fstvlStartDate").getAsString(), DateTimeFormatter.ISO_DATE),
-                                LocalDate.parse(itemsObject.get("fstvlEndDate").getAsString(), DateTimeFormatter.ISO_DATE), "축제",
-                                itemsObject.get("rdnmadr").getAsString(), itemsObject.get("opar").getAsString(), itemsObject.get("fstvlCo").getAsString());
-                        eventRepository.save(event);
-                        
-                    }
-                }
-            }
-        }
-        
-        
-    }
     
     private String concertDetailApi(String eventId) {
         StringBuilder urlBuilder = new StringBuilder("http://www.kopis.or.kr/openApi/restful/pblprfr/"); /*URL*/
