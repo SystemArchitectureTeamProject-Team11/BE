@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class InitDb {
-    
     private final InitService initService;
     
     @PostConstruct
